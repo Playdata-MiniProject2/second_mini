@@ -1,4 +1,4 @@
-package daring.web.board.domain;
+package daring.web.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

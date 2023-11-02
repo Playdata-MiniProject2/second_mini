@@ -1,9 +1,9 @@
-package daring.web.board.controller;
+package daring.web.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import daring.web.board.dto.BoardDto;
-import daring.web.board.service.BoardService;
+import daring.web.dto.BoardDto;
+import daring.web.service.BoardService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

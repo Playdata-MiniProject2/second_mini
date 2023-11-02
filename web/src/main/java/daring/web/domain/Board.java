@@ -1,4 +1,4 @@
-package daring.web.board.domain;
+package daring.web.domain;
 
 import lombok.*;
 import org.springframework.util.Assert;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "board")  // 이거 보고 테이블 생성
-public class Board {
+public class Board extends Time{
 
     @Id // PK Field
     @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙

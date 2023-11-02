@@ -1,10 +1,10 @@
-package daring.web.board.controller;
+package daring.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import daring.web.board.config.auth.SessionUser;
+import daring.web.config.auth.SessionUser;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,8 +20,8 @@ public class BaseController {
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if(user != null) {
-            model.addAttribute("userName", user.getName());
-            model.addAttribute("userImg", user.getPicture());
+            model.addAttribute("userEmail", user.getEmail());
+            model.addAttribute("userNickname", user.getNickname());
         }
 
         return "index";
