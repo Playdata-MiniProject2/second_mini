@@ -1,5 +1,8 @@
 package daring.web.controller;
 
+import daring.web.domain.User;
+import daring.web.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import daring.web.dto.BoardDto;
@@ -15,6 +18,7 @@ import java.util.List;
 @RequestMapping("board")    // /board 경로로 들어오는 경우 아래의 Method들로 분기될 수 있도록 설정
 public class BoardController {
     private BoardService boardService;
+    private final UserService userService;
 
     // 게시판
 
@@ -23,12 +27,13 @@ public class BoardController {
     // list 경로에 요청 파라미터가 있을 경우 (?page=1), 그에 따른 페이지네이션을 수행함.
 
     @GetMapping({"", "/list"})
-    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum, Authentication auth) {
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
 
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageList", pageList);
+        model.addAttribute("auth", auth);
 
         return "board/list";
     }
@@ -36,7 +41,11 @@ public class BoardController {
     // 글쓰는 페이지
 
     @GetMapping("/post")
-    public String write() {
+    public String write(Authentication auth) {
+        if (auth == null) {
+            return "redirect:/board/list";
+        }
+
         return "board/write";
     }
 
@@ -53,10 +62,12 @@ public class BoardController {
     // PathVariable 애노테이션을 통해 no를 받음
 
     @GetMapping("/post/{no}")
-    public String detail(@PathVariable("no") Long no, Model model) {
+    public String detail(@PathVariable("no") Long no, Model model, Authentication auth) {
         BoardDto boardDTO = boardService.getPost(no);
+        User loginUser = userService.getLoginUserByLoginId(auth.getName());
 
         model.addAttribute("boardDto", boardDTO);
+        model.addAttribute("user", loginUser);
         return "board/detail";
     }
 

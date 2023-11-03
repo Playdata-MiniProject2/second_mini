@@ -46,11 +46,14 @@
         <!-- 수정/삭제 -->
         <div>
             <a th:href="@{'/board/post/edit/' + ${boardDto.id}}">
-                <button class="btn btn-primary">수정</button>
+                <button th:if="${user.email==boardDto.writer}" class="btn btn-primary">수정</button>
+                <button th:unless="${user.email==boardDto.writer}" class="btn btn-primary" style="display:none">수정</button>
+
             </a>
             <form id="delete-form" th:action="@{'/board/post/' + ${boardDto.id}}" method="post">
                 <input type="hidden" name="_method" value="delete"/>
-                <button class="btn btn-warning" id="delete-btn">삭제</button>
+                <button th:if="${user.email==boardDto.writer}" class="btn btn-warning" id="delete-btn">삭제</button>
+                <button th:unless="${user.email==boardDto.writer}" class="btn btn-warning" id="delete-btn" style="display:none">삭제</button>
             </form>
         </div>
 

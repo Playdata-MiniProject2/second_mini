@@ -19,16 +19,16 @@ spring:
         #show_sql: true
         format_sql: true
 
-    mvc:
-      hiddenmethod:
-        filter:
-          enabled: true # GET, POST 뿐 만 아니라 PUT, DELETE 등의 메서드도 사용하기 위한 설정
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true # GET, POST 뿐 만 아니라 PUT, DELETE 등의 메서드도 사용하기 위한 설정
 
-      devtools:
-        livereload:
-          enabled: true
+  devtools:
+    livereload:
+      enabled: true
 
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace
