@@ -70,7 +70,7 @@ public class SecurityLoginController {
             return "security-login/join";
         }
 
-        userService.join(joinRequest);
+        userService.join2(joinRequest);
         return "redirect:/security-login";
     }
 

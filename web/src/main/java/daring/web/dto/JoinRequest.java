@@ -32,4 +32,14 @@ public class JoinRequest {
                 .role(Role.USER)
                 .build();
     }
+
+    // 비밀번호 암호화
+    public User toEntity(String encodedPassword) {
+        return User.builder()
+                .email(this.loginId)
+                .password(encodedPassword)
+                .nickname(this.nickname)
+                .role(Role.USER)
+                .build();
+    }
 }
