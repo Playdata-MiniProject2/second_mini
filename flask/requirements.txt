@@ -1,2 +1,6 @@
-flask
-openai
+flask == 2.2.2
+transformers == 4.35.0
+video-diffusion-pytorch == 0.6.0
+sentencepiece == 0.1.99
+sacremoses == 0.1.1
+importlib_metadata == 6.8.0
