@@ -39,19 +39,18 @@ public class FlaskController {
             //return "form_for_flask";
         }
 
-        @GetMapping("/")
+        /*@GetMapping("/")
         public String mainPage(Model model) throws java.io.IOException{
 
             // HTML 템플릿을 렌더링
             return "/";
-        }
+        }*/
 
         @PostMapping("/")
         public String submitForm(@RequestParam("userInput") String userInput, Model model) {
             // 여기서 userInput을 Flask로 전달하거나 다른 작업을 수행할 수 있습니다.
 
             // 입력받은 값을 플라스크로 전달
-            System.out.println("testttttttttttttttt");
             sendToFlask(userInput);
 
             // 전달할 데이터를 모델에 추가
@@ -62,7 +61,7 @@ public class FlaskController {
             model.addAttribute("imgFromFlask", "data:image/gif;base64, " + result);
 
             // HTML 템플릿을 렌더링
-            return "/"; // result.html 파일로 이동
+            return "index"; // result.html 파일로 이동
         }
 
 }

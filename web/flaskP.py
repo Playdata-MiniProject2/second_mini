@@ -30,7 +30,7 @@ def model(text):
         model,
         image_size=32,    # height and width of frames
         num_frames=5,     # number of video frames
-        timesteps=1000,   # number of steps
+        timesteps=10,   # number of steps
         loss_type='l1',    # L1 or L2
     )
 

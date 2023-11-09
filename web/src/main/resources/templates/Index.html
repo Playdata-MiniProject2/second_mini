@@ -24,7 +24,7 @@
     <div class="head">
         <div class="left">
             <div>
-                <p class="multiEffect">Daring</p>
+                <p class="multiEffect"><strong>Daring</strong></p>
             </div>
             <br>
             <div style="color: #9370DB">
@@ -33,10 +33,10 @@
             </div>
             <br>
             <div>
-                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">회원 가입</button>
-                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">회원 가입</button>
-                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">로그인</button>
-                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">로그인</button>
+                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">Join</button>
+                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">Join</button>
+                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">Login</button>
+                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">Login</button>
                 <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/board/list}'|" style="display: none">게시판</button>
                 <button class="logJoin" th:unless="${nickname==null}" th:onclick="|location.href='@{/board/list}'|">게시판</button>
             </div>
@@ -53,8 +53,8 @@
             </div>
                 <div class="input-container">
                     <br>
-                    <form action="/flask/" method="post">
-                        <input id="userInput" name="userInput" rows="20" cols="128" placeholder="Enter your prompt..." required></input><br>
+                    <form action="/flask/" method="post" style="text-align: center">
+                        <input id="userInput" name="userInput" rows="20" cols="128" placeholder="Enter your prompt..." required><br>
                         <button id="lodingBtn" type="submit">Sumit</button>
                     </form>
                 </div>

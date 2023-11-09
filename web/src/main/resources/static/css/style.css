@@ -41,7 +41,7 @@ main {
     align-items: center;
 }
 
-textarea {
+input {
     color: #9370DB;
     width: 100%;
     height: 90px;
@@ -55,7 +55,7 @@ textarea {
     box-shadow: 0 2px 4px #9370DB;
 }
 
-input {
+button {
     padding: 10px 20px;
     background-color: #ffffff;
     color: #9370DB;
@@ -66,7 +66,7 @@ input {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-input:hover {
+button:hover {
     background-color: #9370DB;
     color: #ffffff;
 }
@@ -155,33 +155,6 @@ div.right {
     height: 300px;
 }
 
-.input-container input{
-    color: #9370DB;
-    width: 100%;
-    height: 70px;
-
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: black;
-    resize: none;
-    box-shadow: 0 2px 4px #9370DB;
-}
-
-.input-container button{
-    padding: 10px 20px;
-    background-color: #ffffff;
-    color: #9370DB;
-    border: 2px solid #9370DB;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.input-container button:hover{
-    background-color: #9370DB;
-    color: #ffffff;
-}
 
 .logJoin{
     padding: 10px 20px;
@@ -201,4 +174,8 @@ div.right {
 
 header{
     text-align: right;
+}
+img{
+    width: 100%;
+    height: 100%;
 }
