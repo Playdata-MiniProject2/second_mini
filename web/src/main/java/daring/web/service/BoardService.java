@@ -1,15 +1,22 @@
 package daring.web.service;
 
+import daring.web.domain.UploadImage;
+import daring.web.domain.User;
+import daring.web.dto.BoardCreateRequest;
+import daring.web.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import daring.web.domain.Board;
 import daring.web.repository.BoardRepository;
 import daring.web.dto.BoardDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +27,8 @@ public class BoardService {
 
     //boardRepository 객체 생성
     private BoardRepository boardRepository;
+    private final UploadImageService uploadImageService;
+    private final UserRepository userRepository;
 
 
     private static final int BLOCK_PAGE_NUM_COUNT = 5; // 블럭에 존재하는 페이지 번호 수
@@ -56,26 +65,39 @@ public class BoardService {
 
     @Transactional
     public BoardDto getPost(Long id) {
-        // Optional : NPE(NullPointerException) 방지
-        Optional<Board> boardWrapper = boardRepository.findById(id);
-        Board board = boardWrapper.get();
-
-        BoardDto boardDTO = BoardDto.builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
-                .likeCnt(board.getLikeCnt())
-                .createdDate(board.getCreatedDate())
-                .modifiedDate(board.getModifiedDate())
-                .build();
-
-        return boardDTO;
+        Optional<Board> optBoard = boardRepository.findById(id);
+        return BoardDto.of(optBoard.get());
     }
 
     @Transactional
-    public Long savePost(BoardDto boardDto) {
-        return boardRepository.save(boardDto.toEntity()).getId();
+    public Long savePost(BoardCreateRequest req, String email, Authentication auth) throws IOException {
+        User loginUser = userRepository.findByEmail(email).get();
+        Board savedBoard = boardRepository.save(req.toEntity(loginUser));
+        UploadImage uploadImage = uploadImageService.saveImage(req.getUploadImage(), savedBoard);
+        if (uploadImage != null) {
+            savedBoard.setUploadImage(uploadImage);
+        }
+        return savedBoard.getId();
+    }
+
+    @Transactional
+    public Long editPost(Long boardId, BoardDto dto) throws IOException {
+        Optional<Board> optBoard = boardRepository.findById(boardId);
+
+        Board board = optBoard.get();
+        // 게시글에 이미지가 있었으면 삭제
+        if (board.getUploadImage() != null) {
+            uploadImageService.deleteImage(board.getUploadImage());
+            board.setUploadImage(null);
+        }
+
+        UploadImage uploadImage = uploadImageService.saveImage(dto.getNewImage(), board);
+        if (uploadImage != null) {
+            board.setUploadImage(uploadImage);
+        }
+        board.update(dto);
+
+        return board.getId();
     }
 
     @Transactional

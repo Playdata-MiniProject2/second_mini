@@ -1,7 +1,12 @@
 package daring.web.controller;
 
 import daring.web.domain.User;
+import daring.web.dto.BoardCreateRequest;
+import daring.web.service.UploadImageService;
 import daring.web.service.UserService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +16,9 @@ import daring.web.service.BoardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Controller
@@ -19,6 +27,7 @@ import java.util.List;
 public class BoardController {
     private BoardService boardService;
     private final UserService userService;
+    private final UploadImageService uploadImageService;
 
     // 게시판
 
@@ -53,8 +62,9 @@ public class BoardController {
     // 그 후에는 /list 경로로 리디렉션해준다.
 
     @PostMapping("/post")
-    public String write(BoardDto boardDto) {
-        boardService.savePost(boardDto);
+    public String write(@ModelAttribute BoardCreateRequest req,
+                        Authentication auth, Model model) throws IOException {
+        boardService.savePost(req, auth.getName(), auth);
         return "redirect:/board/list";
     }
 
@@ -63,11 +73,19 @@ public class BoardController {
 
     @GetMapping("/post/{no}")
     public String detail(@PathVariable("no") Long no, Model model, Authentication auth) {
+        System.out.println("test111111111111111111111");
         BoardDto boardDTO = boardService.getPost(no);
-        User loginUser = userService.getLoginUserByLoginId(auth.getName());
-
+        if(auth.getName()!=null){   //그냥 if말고 예외처리 해야함
+            User loginUser = userService.getLoginUserByLoginId(auth.getName());
+            model.addAttribute("user", loginUser);
+        }
+        else
+            model.addAttribute("user", null);
         model.addAttribute("boardDto", boardDTO);
-        model.addAttribute("user", loginUser);
+        System.out.println("test5555555555555");
+
+        //model.addAttribute("imageSrc", uploadImageService.getFullPath(boardDTO.getUploadImage().getSavedFilename()));
+        System.out.println("test666666666666666");
         return "board/detail";
     }
 
@@ -84,8 +102,9 @@ public class BoardController {
     // 위는 GET 메서드이며, PUT 메서드를 이용해 게시물 수정한 부분에 대해 적용
 
     @PutMapping("/post/edit/{no}")
-    public String update(BoardDto boardDTO) {
-        boardService.savePost(boardDTO);
+    public String update(@PathVariable("no") Long boardId,
+                         @ModelAttribute BoardDto dto, Model model) throws IOException {
+        boardService.editPost(boardId, dto);
 
         return "redirect:/board/list";
     }
@@ -110,5 +129,18 @@ public class BoardController {
         model.addAttribute("boardList", boardDtoList);
 
         return "board/list";
+    }
+
+    //@ResponseBody
+    @GetMapping("/images/{filename}")
+    public String showImage(@PathVariable("filename") String filename, Model model) throws MalformedURLException {
+        model.addAttribute("imageSrc", uploadImageService.getFullPath(filename));
+        return "redirect:/board/list";
+        //return new UrlResource("file:" + uploadImageService.getFullPath(filename));
+    }
+
+    @GetMapping("/images/download/{boardId}")
+    public ResponseEntity<UrlResource> downloadImage(@PathVariable Long boardId) throws MalformedURLException {
+        return uploadImageService.downloadImage(boardId);
     }
 }

@@ -1,26 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common :: head('detail.')">
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
-    <link href="starter-template.css" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@100&family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
 
     <title>detail</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: black;
+            color: #9370DB;
+        }
+
+        .starter-template {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .table-bordered {
+            border: 1px solid #9370DB;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #9370DB;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th.col-md-4 {
+            width: 30%;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: black;
+            color: #9370DB;
+            border: 2px solid #9370DB;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 30px;
+        }
+
+        .back-button:hover {
+            background-color: #9370DB;
+            color: #ffffff;
+        }
+        .btn-primary {
+            padding: 10px 20px;
+            background-color: #9370DB;
+            color: #ffffff;
+            border: 2px solid #9370DB;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+            color: #9370DB;
+        }
+
+        .btn-warning {
+            padding: 10px 20px;
+            background-color: #9370DB;
+            color: #ffffff;
+            border: 2px solid #9370DB;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-warning:hover {
+            background-color: #ffffff;
+            color: #9370DB;
+        }
+    </style>
+
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('home')"></nav>
+<br>
+<div>
+    <a class="back-button" th:href="@{/board/list}">돌아가기</a>
+</div>
 
 <main role="main" class="container">
     <div class="starter-template">
 
         <table class ="table table-bordered">
             <thead>
-            <caption>글 읽기</caption>
+            <caption>게시글</caption>
             </thead>
             <tbody>
             <tr>
@@ -43,6 +134,11 @@
             <tr>
                 <th>좋아요</th>
                 <td th:text="${boardDto.likeCnt}"></td>
+            </tr>
+            <tr>
+                <th>이미지</th>
+                <!--<td><img th:src="${filename}" alt="Image"/></td>-->
+                <!--<td th:text="${imageSrc}"></td>-->
             </tr>
             </tbody>
         </table>
@@ -82,11 +178,5 @@
 
     </div>
 </main>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 </html>

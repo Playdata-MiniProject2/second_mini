@@ -32,3 +32,9 @@ spring:
     level:
       org.hibernate.SQL: debug
       org.hibernate.type: trace
+
+thymeleaf:
+  prefix=classpath: templates/
+  suffix: .html
+  mvc:
+    static-path-pattern: "/static/**"

@@ -1,0 +1,74 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: black;
+    color: #9370DB;
+}
+
+.starter-template {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+input[type="text"] {
+    color: #9370DB;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px #9370DB;
+}
+
+textarea {
+    color: #9370DB;
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    margin-bottom: 10px;
+    resize: vertical;
+    box-shadow: 0 2px 4px #9370DB;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #9370DB;
+    color: #ffffff;
+    border: 2px solid #9370DB;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffffff;
+    color: #9370DB;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: #9370DB;
+    border: 2px solid #9370DB;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 30px;
+}
+
+.back-button:hover {
+    background-color: #9370DB;
+    color: #ffffff;
+}

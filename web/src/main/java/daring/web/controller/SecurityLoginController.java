@@ -37,7 +37,7 @@ public class SecurityLoginController {
             }
         }
 
-        return "security-login/home";
+        return "index";
     }
     @GetMapping("/join")
     public String joinPage(Model model) {

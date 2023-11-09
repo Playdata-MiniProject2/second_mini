@@ -1,23 +1,100 @@
+<!DOCTYPE html>
 <html lang="ko">
 <html xmlns:th="http://www.thymeleaf.org">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <title th:text="|${pageName}|"></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@100&family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+    <title>daring</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
 </head>
+
 <body>
-<div>
-    <h1><a th:href="|/${loginType}|">[[${pageName}]]</a></h1> <hr/>
-    <div th:if="${nickname == null}">
-        <h3>로그인 되어있지 않습니다!</h3>
-        <button th:onclick="|location.href='@{/{loginType}/security-login/join (loginType=${loginType})}'|">회원 가입</button> <br/><br/>
-        <button th:onclick="|location.href='@{/{loginType}/security-login/login (loginType=${loginType})}'|">로그인</button>
+
+<header>
+
+</header>
+
+
+<main>
+    <div class="head">
+        <div class="left">
+            <div>
+                <p class="multiEffect">Daring</p>
+            </div>
+            <br>
+            <div style="color: #9370DB">
+                <h3>description</h3>
+                <p>어쩌구 저쩌구</p>
+            </div>
+            <br>
+            <div>
+                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">회원 가입</button>
+                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/join (loginType=${loginType})}'|">회원 가입</button>
+                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">로그인</button>
+                <button class="logJoin" th:unless="${nickname==null}" style="display: none" th:onclick="|location.href='@{/security-login/login (loginType=${loginType})}'|">로그인</button>
+                <button class="logJoin" th:if="${nickname==null}" th:onclick="|location.href='@{/board/list}'|" style="display: none">게시판</button>
+                <button class="logJoin" th:unless="${nickname==null}" th:onclick="|location.href='@{/board/list}'|">게시판</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="query-idea">
+                <h3>Enter your prompt</h3>
+                <p>If you enter a prompt of your image, we will let you know the interesting results</p>
+            </div>
+            <div class="imageBox">
+                <img>
+            </div>
+            <form autocomplete="off" method="post" action="/result">
+                <div class="description">
+                </div>
+                <div class="input-container">
+                    <br>
+                    <textarea id="text" name="text" rows="20" cols="128" placeholder="Enter your prompt..." required></textarea><br>
+
+                    <input id="lodingBtn" type="submit" class="btn-primary" value="submit" onclick="commit()">
+                </div>
+            </form>
+        </div>
     </div>
-    <div th:unless="${nickname == null}">
-        <h3>[[${nickname}]]님 환영합니다!</h3>
-        <button th:onclick="|location.href='@{/{loginType}/info (loginType=${loginType})}'|">유저 정보</button> <br/><br/>
-        <button th:onclick="|location.href='@{/{loginType}/admin (loginType=${loginType})}'|">관리자 페이지</button> <br/><br/>
-        <button th:onclick="|location.href='@{/{loginType}/logout (loginType=${loginType})}'|">로그아웃</button>
-    </div>
-</div>
+</main>
+
+<!--<div id="loading" style="margin-left: 0px;">
+    <img src="https://www.railtrip.co.kr/image/loading2.gif">
+    <p>Loading..</p>
+</div>-->
+<!-- Core -->
+<script src="../static/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../static/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="../static/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../static/vendor/headroom.js/dist/headroom.min.js"></script>
+<script src="../static/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+
+        $('#loading').hide();
+        $('#lodingBtn').click(function() {
+            $('#loading').show();
+            console.log("실행중")
+            setTimeout(" $('#loading').hide()", 60000);
+            console.log("실행끝")
+            setTimeout("ozit_timer_test()", 60000);
+            return true;
+        });
+    });
+
+
+    function ozit_timer_test() {
+        var link = '../result/';
+        location.href = link;
+    };
+
+</script>
+
 </body>
+
 </html>
